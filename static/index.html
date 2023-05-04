@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Test</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="https://img.freepik.com/iconos-gratis/serpientes_318-368381.jpg" alt="Logo" class="logo">
+        </div>
+        <div class="button-container">
+            <button id="textButton" class="action-button">Ya tengo texto</button>
+            <button id="audioButton" class="action-button">Tengo un archivo de audio</button>
+        </div>
+    </header>
+    <div id="textFormContainer" style="display:none;">
+        <h2>Texto a Procesar</h2>
+        <textarea id="text-input" rows="15" cols="50"></textarea>
+        <button id="process-text-button">Procesar Texto</button>
+        <div id="loading-text" style="display:none;">Cargando...</div>
+        <h3 id="ia-conclusion-title" style="display:none;">Conclusión de la IA:</h3>
+        <textarea id="ia-conclusion" rows="15" cols="50" style="display:none;"></textarea>
+    </div>
+    <div id="audioFormContainer" style="display:none;">
+        <h2>Audio a Procesar</h2>
+        <input type="file" id="audio-file" accept="audio/mp3, audio/wav" style="display:none;">
+        <button id="custom-audio-button" class="custom-file-button">Elegir archivo</button>
+        <button id="process-audio-button">Procesar Audio</button>
+        <div id="loading-audio" style="display:none;">Cargando...</div>
+        <div id="success-audio" style="display:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        </div>
+        <textarea id="audio-response" rows="15" cols="50" style="display:none;"></textarea>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

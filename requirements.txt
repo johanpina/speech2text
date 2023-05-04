@@ -1,0 +1,6 @@
+openai 
+fastapi[all] 
+uvicorn[standard] 
+openai-whisper 
+jiwer
+pydub
