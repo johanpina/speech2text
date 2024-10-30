@@ -1,19 +1,19 @@
-import openai
 import os
+from openai import OpenAI
 
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv(filename='.envv'))
 
-openai.api_key  = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 def get_completion(prompt: str, model:str="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        temperature=0, # this is the degree of randomness of the model's output
+    response = client.chat.completions.create(model=model,
+    messages=messages,
+    temperature=0,
+    response_format={"type": "json_object"}
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
 
 
 def promptMedico(texto: str):
@@ -27,6 +27,11 @@ def promptMedico(texto: str):
             -sintomas: dame una lista separada por comas de los síntomas
             -diagnostico: dame un resumen del examen que se le practica al paciente (maximo 20 palabras)
             -examen:infiere el tipo de examen que se le realiza a la paciente
+            -hallazgos: dame un resumen de los hallazgos clínicos que se reportan en el texto
+            -tratamiento: dame un resumen del tratamiento que se le da al paciente
+            -pronostico: dame un resumen del pronostico del paciente
+            -observaciones: dame un resumen de las observaciones que se le hacen al paciente
             '''{texto}'''
+            el formato de salida debe ser JSON
             """
     return text

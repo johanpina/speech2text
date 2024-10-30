@@ -3,7 +3,7 @@ from chatgpt import get_completion, promptMedico
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.responses import FileResponse
-from whisperModule import process_audio_file, run_whisper_command
+from whisperModule import run_whisper_api
 import schemas
 import os 
 
@@ -30,7 +30,7 @@ async def process_audio(uploaded_file: UploadFile = File(...)):
     with open(input_file, "wb") as f:
         f.write(await uploaded_file.read())
 
-    processed_file = None
+    """processed_file = None
     # Procesar el archivo de audio y eliminar el archivo temporal
     try:
         processed_file = process_audio_file(input_file)
@@ -38,8 +38,8 @@ async def process_audio(uploaded_file: UploadFile = File(...)):
         os.remove(input_file)
 
     if not processed_file:
-        raise HTMLResponse(status_code=400, content="Error procesando el audio")
+        raise HTMLResponse(status_code=400, content="Error procesando el audio")"""
     
-    text_file = run_whisper_command(input_path = processed_file)
+    text_file = run_whisper_api(input_path = input_file)
     
     return schemas.TextData(texto=text_file)

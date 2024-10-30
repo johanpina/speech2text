@@ -1,6 +1,5 @@
 openai 
 fastapi[all] 
 uvicorn[standard] 
-openai-whisper 
+#openai-whisper 
 jiwer
-pydub

@@ -1,44 +1,16 @@
-const textButton = document.getElementById("textButton");
+//const textButton = document.getElementById("textButton");
 const audioButton = document.getElementById("audioButton");
-const textFormContainer = document.getElementById("textFormContainer");
+//const textFormContainer = document.getElementById("textFormContainer");
 const audioFormContainer = document.getElementById("audioFormContainer");
-const processTextButton = document.getElementById("process-text-button");
+//const processTextButton = document.getElementById("process-text-button");
 const processAudioButton = document.getElementById("process-audio-button");
 const customAudioButton = document.getElementById("custom-audio-button");
 const audioFileInput = document.getElementById("audio-file");
 
-textButton.addEventListener("click", () => {
-  textFormContainer.style.display = "block";
-  audioFormContainer.style.display = "none";
-});
 
 audioButton.addEventListener("click", () => {
-  textFormContainer.style.display = "none";
+  //textFormContainer.style.display = "none";
   audioFormContainer.style.display = "block";
-});
-
-processTextButton.addEventListener("click", async () => {
-  const textInput = document.getElementById("text-input");
-  const iaConclusionTitle = document.getElementById("ia-conclusion-title");
-  const iaConclusion = document.getElementById("ia-conclusion");
-  const loadingText = document.getElementById("loading-text");
-
-  iaConclusionTitle.style.display = "none";
-  iaConclusion.style.display = "none";
-  loadingText.style.display = "block";
-
-  const response = await fetch("/api/prompt_medico", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ texto: textInput.value }),
-  });
-
-  const data = await response.json();
-
-  iaConclusionTitle.style.display = "block";
-  iaConclusion.style.display = "block";
-  iaConclusion.value = data.response;
-  loadingText.style.display = "none";
 });
 
 customAudioButton.addEventListener("click", () => {
@@ -53,7 +25,9 @@ processAudioButton.addEventListener("click", async () => {
   const audioResponse = document.getElementById("audio-response");
   const loadingAudio = document.getElementById("loading-audio");
   const successAudio = document.getElementById("success-audio");
-
+  const iaConclusionTitle = document.getElementById("audio-ia-conclusion-title");
+  const iaConclusion = document.getElementById("audio-ia-conclusion");
+  const loadingText = document.getElementById("loading-text");
   const file = audioFileInput.files[0];
   const formData = new FormData();
   formData.append("uploaded_file", file);
@@ -73,4 +47,22 @@ processAudioButton.addEventListener("click", async () => {
   successAudio.style.display = "block";
   audioResponse.style.display = "block";
   audioResponse.value = data.texto;
+
+  iaConclusionTitle.style.display = "none";
+  iaConclusion.style.display = "none";
+  loadingText.style.display = "block";
+
+  const response2 = await fetch("/api/prompt_medico", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ texto: audioResponse.value}),
+  });
+
+  const data2 = await response2.json();
+
+  iaConclusionTitle.style.display = "block";
+  iaConclusion.style.display = "block";
+  iaConclusion.value = data2.response;
+  loadingText.style.display = "none";
+
 });
